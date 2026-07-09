@@ -30,7 +30,7 @@ window.CONFIG = {
   song: {
     title: "Count on Me",
     artist: "Bruno Mars",
-    youtubeId: "cD-fLbGYME8", // Bruno Mars – Count on Me (lyric)
+    youtubeId: "6k8cpUkKK4c", // Bruno Mars – Count on Me (verified embeddable)
     mp3: "",
     lyric: "You can count on me like 1, 2, 3…",
   },

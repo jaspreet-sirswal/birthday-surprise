@@ -99,8 +99,16 @@ h2{font-size:clamp(22px,4.4vw,38px)}
 .g-search{border:1px solid #dfe1e5;border-radius:24px;padding:9px 18px;font:15px system-ui;
   color:#333;text-align:left;max-width:420px;margin:0 auto 16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.grid .tile{aspect-ratio:4/3;border-radius:8px;background-size:cover;background-position:center;
-  background:linear-gradient(135deg,#e7d9ff,#fdf0c0)}
+/* Portrait tiles (3:4) match the phone photos -> no subject cropped out. */
+.grid .tile{aspect-ratio:3/4;width:100%;border-radius:8px;object-fit:cover;display:block;
+  background:linear-gradient(135deg,#e7d9ff,#fdf0c0);cursor:zoom-in;transition:transform .12s}
+.grid .tile:hover{transform:scale(1.03)}
+
+/* Lightbox — tap a memory to view it full-size */
+#lightbox{position:fixed;inset:0;z-index:30;background:rgba(20,14,40,.88);
+  display:none;place-items:center;padding:18px;cursor:zoom-out}
+#lightbox.open{display:grid;animation:pop .25s}
+#lightbox img{max-width:96vw;max-height:92vh;border-radius:14px;box-shadow:0 12px 44px rgba(0,0,0,.55)}
 
 /* Music / cassette player */
 .cassette{font-size:clamp(70px,16vw,120px)}

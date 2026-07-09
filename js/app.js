@@ -59,6 +59,13 @@
   $("#modalX").addEventListener("click", closeModal);
   modal.addEventListener("click", (e) => e.target === modal && closeModal());
   function closeModal() { modal.classList.remove("open"); body.innerHTML = ""; }
+
+  // Lightbox: click any memory tile to view it full-size.
+  const lb = $("#lightbox"), lbImg = $("#lightboxImg");
+  body.addEventListener("click", (e) => {
+    if (e.target.matches("img.tile")) { lbImg.src = e.target.src; lb.classList.add("open"); }
+  });
+  lb.addEventListener("click", () => { lb.classList.remove("open"); lbImg.src = ""; });
   function openItem(kind) {
     body.innerHTML = builders[kind]();
     modal.classList.add("open");
@@ -68,7 +75,7 @@
     // Google-style "Memories" gallery
     camera() {
       const tiles = (C.photos && C.photos.length)
-        ? C.photos.map((p) => `<div class="tile" style="background-image:url('${p}')"></div>`).join("")
+        ? C.photos.map((p) => `<img class="tile" src="${p}" loading="lazy" alt="a memory">`).join("")
         : Array.from({ length: 6 }, (_, i) =>
             `<div class="tile" style="background:linear-gradient(135deg,hsl(${i*55},70%,85%),hsl(${i*55+40},75%,90%))"></div>`).join("");
       return `
@@ -85,7 +92,7 @@
     cassette() {
       const s = C.song, player = s.mp3
         ? `<audio class="player" controls autoplay src="${s.mp3}"></audio>`
-        : `<iframe class="yt player" src="https://www.youtube.com/embed/${s.youtubeId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        : `<iframe class="yt player" src="https://www.youtube.com/embed/${s.youtubeId}?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
       return `
         <div class="cassette">📼</div>
         <div class="song-title">${escapeHtml(s.title)} — ${escapeHtml(s.artist)}</div>
