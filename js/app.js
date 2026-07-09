@@ -60,12 +60,33 @@
   modal.addEventListener("click", (e) => e.target === modal && closeModal());
   function closeModal() { modal.classList.remove("open"); body.innerHTML = ""; }
 
-  // Lightbox: click any memory tile to view it full-size.
-  const lb = $("#lightbox"), lbImg = $("#lightboxImg");
+  // Lightbox: click any memory to view full-size, then navigate to/fro.
+  const lb = $("#lightbox"), lbImg = $("#lightboxImg"), lbCount = $("#lbCount");
+  const gallery = C.photos || [];
+  let lbIdx = 0;
+  function openLb(i) {
+    if (!gallery.length) return;
+    lbIdx = (i + gallery.length) % gallery.length;   // wrap around both ends
+    lbImg.src = gallery[lbIdx];
+    lbCount.textContent = `${lbIdx + 1} / ${gallery.length}`;
+    lb.classList.add("open");
+  }
+  function closeLb() { lb.classList.remove("open"); lbImg.src = ""; }
+  // getAttribute keeps the relative path so it matches C.photos entries.
   body.addEventListener("click", (e) => {
-    if (e.target.matches("img.tile")) { lbImg.src = e.target.src; lb.classList.add("open"); }
+    if (e.target.matches("img.tile")) openLb(Math.max(0, gallery.indexOf(e.target.getAttribute("src"))));
   });
-  lb.addEventListener("click", () => { lb.classList.remove("open"); lbImg.src = ""; });
+  $("#lbPrev").addEventListener("click", (e) => { e.stopPropagation(); openLb(lbIdx - 1); });
+  $("#lbNext").addEventListener("click", (e) => { e.stopPropagation(); openLb(lbIdx + 1); });
+  $("#lbClose").addEventListener("click", (e) => { e.stopPropagation(); closeLb(); });
+  lbImg.addEventListener("click", (e) => e.stopPropagation());     // don't close when tapping the photo
+  lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); }); // backdrop closes
+  addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLb();
+    else if (e.key === "ArrowLeft") openLb(lbIdx - 1);
+    else if (e.key === "ArrowRight") openLb(lbIdx + 1);
+  });
   function openItem(kind) {
     body.innerHTML = builders[kind]();
     modal.classList.add("open");
@@ -138,4 +159,5 @@
   const q = new URLSearchParams(location.search);
   if (q.get("s")) show(q.get("s"));
   if (q.get("open") && builders[q.get("open")]) openItem(q.get("open"));
+  if (q.get("lb") !== null && q.get("lb") !== undefined && q.has("lb")) openLb(+q.get("lb"));
 })();

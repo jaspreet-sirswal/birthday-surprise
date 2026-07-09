@@ -106,10 +106,20 @@ h2{font-size:clamp(22px,4.4vw,38px)}
 .grid .tile:hover{transform:scale(1.03)}
 
 /* Lightbox — tap a memory to view it full-size */
-#lightbox{position:fixed;inset:0;z-index:30;background:rgba(20,14,40,.88);
+#lightbox{position:fixed;inset:0;z-index:30;background:rgba(20,14,40,.9);
   display:none;place-items:center;padding:18px;cursor:zoom-out}
 #lightbox.open{display:grid;animation:pop .25s}
-#lightbox img{max-width:96vw;max-height:92vh;border-radius:14px;box-shadow:0 12px 44px rgba(0,0,0,.55)}
+#lightbox img{max-width:90vw;max-height:88vh;border-radius:14px;cursor:auto;
+  box-shadow:0 12px 44px rgba(0,0,0,.55)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:58px;height:58px;
+  border:none;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:40px;
+  line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .12s;font-family:system-ui}
+.lb-nav:hover{background:rgba(255,255,255,.34)}
+.lb-prev{left:max(12px,3vw)}.lb-next{right:max(12px,3vw)}
+.lb-close{position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;
+  font-size:30px;cursor:pointer;font-family:"Chewy",cursive}
+.lb-count{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#fff;
+  font:600 14px system-ui;background:rgba(0,0,0,.35);padding:4px 12px;border-radius:999px}
 
 /* Music / cassette player */
 .cassette{font-size:clamp(70px,16vw,120px)}

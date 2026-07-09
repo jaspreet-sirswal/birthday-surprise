@@ -78,8 +78,14 @@ how dare you hmph</h1>
     </div>
   </div>
 
-  <!-- Full-size memory viewer -->
-  <div id="lightbox"><img id="lightboxImg" alt="memory"></div>
+  <!-- Full-size memory viewer with prev/next navigation -->
+  <div id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+    <img id="lightboxImg" alt="memory">
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+    <span class="lb-count" id="lbCount"></span>
+  </div>
 
   <canvas class="confetti" id="confetti"></canvas>
 
