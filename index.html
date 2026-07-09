@@ -2,75 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4a6c0">
   <title>A little something for you 💌</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@400;500;600&family=Caveat:wght@500;600&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="corner tl"></div>
-  <div class="corner br"></div>
+  <div id="decor">
+    <div class="corner tl"></div>
+    <div class="corner br"></div>
+  </div>
   <div id="stars"></div>
+  <div id="petals"></div>
 
   <main id="stage">
+    <!-- 0. Cinematic splash -->
+    <section id="splash" class="screen active">
+      <div class="stagger">
+        <div class="bighug">💌</div>
+        <h1 class="script" id="splashLine"></h1>
+        <p class="sub" id="splashSub"></p>
+        <div class="tap" data-go="gate">tap to open ♡</div>
+      </div>
+    </section>
+
     <!-- 1. Password gate -->
-    <section id="gate" class="screen active">
+    <section id="gate" class="screen">
       <div class="gate-card">
-        <h3>Enter the password to view</h3>
-        <input id="pw" type="password" autocomplete="off" placeholder="••••••••">
-        <label class="robot"><input type="checkbox" id="robot"> I'm not a robot</label>
-        <button id="unlock">Continue</button>
+        <div class="lock">🔒</div>
+        <h3>just for you</h3>
+        <p class="tiny">enter our little secret to open 💕</p>
+        <input id="pw" type="tel" inputmode="numeric" autocomplete="off" placeholder="••••••">
+        <button class="btn" id="unlock">Open my surprise</button>
         <div class="gate-err" id="gateErr"></div>
       </div>
     </section>
 
-    <!-- 2. Intro -->
+    <!-- 2. Intro: typewriter + question -->
     <section id="intro" class="screen">
-      <h1 id="introText"></h1>
-      <div class="puppy">🐶💐</div>
-      <div class="btns">
-        <button class="btn" data-go="items">Yes</button>
-        <button class="btn" data-go="no">No</button>
+      <p class="type" id="typeLine"></p>
+      <div id="introRest" style="visibility:hidden">
+        <h1 id="introText"></h1>
+        <div class="puppy">🐶💐</div>
+        <div class="btns">
+          <button class="btn" data-go="yay">Yes 💛</button>
+          <button class="btn ghost" id="noBtn">No</button>
+        </div>
       </div>
     </section>
 
-    <!-- 3. No path -->
+    <!-- 3. No path (rarely reachable — No dodges) -->
     <section id="no" class="screen">
-      <h1>SERIOUSLY!?
+      <div class="stagger">
+        <h1>SERIOUSLY!?
 how dare you hmph</h1>
-      <div class="puppy">🥺</div>
-      <div class="btns"><button class="btn" data-go="intro">Go back</button></div>
+        <div class="puppy">🥺</div>
+        <div class="btns"><button class="btn" data-go="intro">okay okay, go back</button></div>
+      </div>
     </section>
 
     <!-- 4. Yes confirm -->
     <section id="yay" class="screen">
-      <h1>That's a good one!</h1>
-      <div class="puppy">🐕❤️</div>
-      <div class="btns"><button class="btn" data-go="items">Click</button></div>
+      <div class="stagger">
+        <h1 class="script" style="font-size:clamp(40px,12vw,72px)">yay! 🥰</h1>
+        <div class="puppy">🐕❤️</div>
+        <div class="btns"><button class="btn" data-go="items">show me 💫</button></div>
+      </div>
     </section>
 
     <!-- 5. Items -->
     <section id="items" class="screen">
-      <p class="hint">click on each item to open</p>
+      <div class="stagger">
+        <p class="hint">tap each little thing to open 🎁</p>
+        <p class="subhint">there's a surprise in every one</p>
+      </div>
       <div class="items">
         <button class="item" data-item="camera">📷</button>
-        <button class="item" data-item="letter">✉️</button>
+        <button class="item" data-item="letter">💌</button>
+        <button class="item" data-item="reasons">💕</button>
         <button class="item" data-item="cassette">📼</button>
       </div>
-      <div class="btns"><button class="btn" id="nextBtn" data-go="final" hidden>Next</button></div>
+      <div class="btns"><button class="btn" id="nextBtn" data-go="final" hidden>the last surprise →</button></div>
     </section>
 
-    <!-- 6. Final -->
+    <!-- 6. Finale -->
     <section id="final" class="screen">
-      <h1 id="blessing"></h1>
-      <div class="puppy">🐶🎂</div>
-      <div class="btns"><button class="btn" data-go="intro">Replay 🔁</button></div>
+      <div class="heartwrap">
+        <span class="bigheart">💖</span>
+        <span class="inname" id="finName"></span>
+      </div>
+      <h1 class="fin-title" id="finTitle"></h1>
+      <p class="fin-sub" id="finSub"></p>
+      <div class="btns"><button class="btn ghost" data-go="splash">replay 🔁</button></div>
     </section>
   </main>
 
-  <!-- Modal for opened items -->
+  <!-- Item modal -->
   <div class="modal" id="modal">
     <div class="box">
       <button class="x" id="modalX">✕</button>
@@ -78,12 +108,13 @@ how dare you hmph</h1>
     </div>
   </div>
 
-  <!-- Full-size memory viewer with prev/next navigation -->
+  <!-- Full-size memory viewer with navigation -->
   <div id="lightbox">
     <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
     <img id="lightboxImg" alt="memory">
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+    <span class="lb-cap" id="lbCap"></span>
     <span class="lb-count" id="lbCount"></span>
   </div>
 
