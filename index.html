@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>A little something for you 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="corner tl"></div>
+  <div class="corner br"></div>
+  <div id="stars"></div>
+
+  <main id="stage">
+    <!-- 1. Password gate -->
+    <section id="gate" class="screen active">
+      <div class="gate-card">
+        <h3>Enter the password to view</h3>
+        <input id="pw" type="password" autocomplete="off" placeholder="••••••••">
+        <label class="robot"><input type="checkbox" id="robot"> I'm not a robot</label>
+        <button id="unlock">Continue</button>
+        <div class="gate-err" id="gateErr"></div>
+      </div>
+    </section>
+
+    <!-- 2. Intro -->
+    <section id="intro" class="screen">
+      <h1 id="introText"></h1>
+      <div class="puppy">🐶💐</div>
+      <div class="btns">
+        <button class="btn" data-go="items">Yes</button>
+        <button class="btn" data-go="no">No</button>
+      </div>
+    </section>
+
+    <!-- 3. No path -->
+    <section id="no" class="screen">
+      <h1>SERIOUSLY!?
+how dare you hmph</h1>
+      <div class="puppy">🥺</div>
+      <div class="btns"><button class="btn" data-go="intro">Go back</button></div>
+    </section>
+
+    <!-- 4. Yes confirm -->
+    <section id="yay" class="screen">
+      <h1>That's a good one!</h1>
+      <div class="puppy">🐕❤️</div>
+      <div class="btns"><button class="btn" data-go="items">Click</button></div>
+    </section>
+
+    <!-- 5. Items -->
+    <section id="items" class="screen">
+      <p class="hint">click on each item to open</p>
+      <div class="items">
+        <button class="item" data-item="camera">📷</button>
+        <button class="item" data-item="letter">✉️</button>
+        <button class="item" data-item="cassette">📼</button>
+      </div>
+      <div class="btns"><button class="btn" id="nextBtn" data-go="final" hidden>Next</button></div>
+    </section>
+
+    <!-- 6. Final -->
+    <section id="final" class="screen">
+      <h1 id="blessing"></h1>
+      <div class="puppy">🐶🎂</div>
+      <div class="btns"><button class="btn" data-go="intro">Replay 🔁</button></div>
+    </section>
+  </main>
+
+  <!-- Modal for opened items -->
+  <div class="modal" id="modal">
+    <div class="box">
+      <button class="x" id="modalX">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <canvas class="confetti" id="confetti"></canvas>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
